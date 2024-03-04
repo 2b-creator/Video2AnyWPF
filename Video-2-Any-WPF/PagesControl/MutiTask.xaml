@@ -3,14 +3,35 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Video_2_Any_WPF.PagesControl"
       xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+      xmlns:local="clr-namespace:Video_2_Any_WPF.PagesControl"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="MutiTask">
+      Title="MutiTask" Loaded="Page_Loaded">
 
     <Grid>
-        <ui:ScrollViewerEx></ui:ScrollViewerEx>
+        <ui:ScrollViewerEx Margin="10,43,10,159">
+            <DataGrid x:Name="dgQueue" ItemsSource="{Binding MainPage.dataClasses}" IsReadOnly="True" CanUserSortColumns="False" CanUserAddRows="False" CanUserReorderColumns="False">
+                <!--<DataGrid.Columns>
+                    <DataGridTextColumn Width="105" Binding="{Binding sourcePath}">
+                    </DataGridTextColumn>
+                    </DataGrid.Columns>-->
+                <DataGrid.Columns>
+                    <!--<DataGridTextColumn Binding="{Binding}" Header="编号"/>
+                    <DataGridTextColumn Binding="{Binding}" Header="源目录"/>
+                    <DataGridTextColumn Binding="{Binding}" Header="目标目录"/>
+                    <DataGridTextColumn Binding="{Binding}" Header="格式"/>
+                    <DataGridTextColumn Binding="{Binding}" Header="状态"/>-->
+                </DataGrid.Columns>
+            </DataGrid>
+        </ui:ScrollViewerEx>
+
+        <Button x:Name="StartQueue" Content="启动队列" Margin="0,383,10,0" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Width="105" Click="StartQueue_Click"/>
+        <Button Content="更改队列..." Margin="10,383,0,0" VerticalAlignment="Top" Height="30"/>
+
+
         <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="任务队列" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
+        <ui:ProgressBar x:Name="QueueProgressBarL" ShowPaused="True" IsIndeterminate="True" Height="10" Margin="10,296,10,0" VerticalAlignment="Top"/>
+        <TextBlock x:Name="ProText" Margin="0,311,10,0" TextWrapping="Wrap" Text="进度：请先启动队列" VerticalAlignment="Top" HorizontalAlignment="Right" />
     </Grid>
 </Page>

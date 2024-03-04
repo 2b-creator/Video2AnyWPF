@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Toolkit.Uwp.Notifications;
@@ -18,6 +19,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
 
 namespace Video_2_Any_WPF.PagesControl
 {
@@ -25,6 +27,7 @@ namespace Video_2_Any_WPF.PagesControl
     /// MainPage.xaml 的交互逻辑
     /// </summary>
     public delegate void SetNavEnable();
+
     public partial class MainPage : Page
     {
         public MainPage()
@@ -77,7 +80,7 @@ namespace Video_2_Any_WPF.PagesControl
         {
             Dispatcher.Invoke(() =>
             {
-                
+
                 if (e.SizeKb.HasValue)
                 {
                     progressToComp.Value = e.ProcessedDuration / totalTime * 100;
@@ -90,7 +93,7 @@ namespace Video_2_Any_WPF.PagesControl
                 }
             });
         }
-        public void OnComplete(object? sender, ConversionCompleteEventArgs e)
+        private void OnComplete(object? sender, ConversionCompleteEventArgs e)
         {
             Dispatcher.Invoke(() =>
             {
@@ -101,6 +104,23 @@ namespace Video_2_Any_WPF.PagesControl
                 .AddText("Enjoy your work")
                 .Show();
             });
+        }
+        public static ObservableCollection<DataClass> dataClasses = new ObservableCollection<DataClass>();
+        public int IdCode = 0;
+        private void addToQueue_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(sourcePath.Text) == false && string.IsNullOrEmpty(savePath.Text) == false)
+            {
+                IdCode++;
+                DataClass dataClass = new DataClass();
+                dataClass.Id = IdCode;
+                dataClass.format = formatChooser.Text;
+                dataClass.sourcePath = sourcePath.Text;
+                dataClass.targetPath = savePath.Text;
+                dataClass.status = 0;
+                dataClasses.Add(dataClass);
+            }
+
         }
     }
 }
