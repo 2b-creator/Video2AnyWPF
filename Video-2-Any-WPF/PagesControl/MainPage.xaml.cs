@@ -24,6 +24,7 @@ namespace Video_2_Any_WPF.PagesControl
     /// <summary>
     /// MainPage.xaml 的交互逻辑
     /// </summary>
+    public delegate void SetNavEnable();
     public partial class MainPage : Page
     {
         public MainPage()
@@ -60,6 +61,7 @@ namespace Video_2_Any_WPF.PagesControl
             var ffmpeg = new Engine(workPath);
             if (string.IsNullOrEmpty(sourcePath.Text) == false && string.IsNullOrEmpty(savePath.Text) == false)
             {
+                MainWindow.disabledValue = 0;
                 var inputFile = new InputFile(sourcePath.Text);
                 var outputFile = new OutputFile(savePath.Text);
                 var metadata = await ffmpeg.GetMetaDataAsync(inputFile, CancellationToken.None);

@@ -20,22 +20,39 @@ namespace Video_2_Any_WPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static int disabledValue = 1;
         public MainWindow()
         {
             InitializeComponent();
-        }
+            DefaultPage defaultPage = new DefaultPage();
+            contentFrame.Navigate(defaultPage);
 
+        }
+        public Dictionary<string, object> data = new Dictionary<string, object>();
         private void NavigationView_SelectionChanged(iNKORE.UI.WPF.Modern.Controls.NavigationView sender, iNKORE.UI.WPF.Modern.Controls.NavigationViewSelectionChangedEventArgs args)
-        {
+        { 
             var selectedItem = (iNKORE.UI.WPF.Modern.Controls.NavigationViewItem)args.SelectedItem;
             if (selectedItem != null)
             {
                 string selectedItemTag = (string)selectedItem.Tag;
-                //Type pageType = typeof(MainPage).Assembly.GetType(selectedItemTag);
-                Type type = Type.GetType("Video_2_Any_WPF.PagesControl."+selectedItemTag); 
-                var obj = Activator.CreateInstance(type);
-                contentFrame.Navigate(obj);
+                if (!data.ContainsKey(selectedItemTag))
+                {
+                    //Type pageType = typeof(MainPage).Assembly.GetType(selectedItemTag);
+                    Type type = Type.GetType("Video_2_Any_WPF.PagesControl." + selectedItemTag);
+                    var obj = Activator.CreateInstance(type);
+                    contentFrame.Navigate(obj);
+                    data.Add(selectedItemTag, obj);
+                }
+                else
+                {
+                    contentFrame.Navigate(data[selectedItemTag]);
+                }
             }
+        }
+
+        private void mainWindow_Activated(object sender, EventArgs e)
+        {
+
         }
     }
 }
