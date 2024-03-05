@@ -20,6 +20,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
+using System.DirectoryServices.ActiveDirectory;
 
 namespace Video_2_Any_WPF.PagesControl
 {
@@ -35,11 +36,19 @@ namespace Video_2_Any_WPF.PagesControl
             InitializeComponent();
         }
 
-        private void openSource_Click(object sender, RoutedEventArgs e)
+        private async void openSource_Click(object sender, RoutedEventArgs e)
         {
             Controller controller = new Controller();
             string? path = controller.SelectFileWpf();
             sourcePath.Text = path;
+            string[] paths = { System.Environment.CurrentDirectory, "ffmpeg.exe" };
+            string workPath = System.IO.Path.Combine(paths);
+            var ffmpeg = new Engine(workPath);
+            var inputFile = new InputFile(sourcePath.Text);
+            var metadata = await ffmpeg.GetMetaDataAsync(inputFile, CancellationToken.None);
+            var frameSize = metadata.VideoData.FrameSize;
+            var fps = metadata.VideoData.Fps;
+            SourceInformation.Text = $"帧宽高：{frameSize.ToString()}\n帧速率：{fps.ToString()}";
         }
 
         private void saveFile_Click(object sender, RoutedEventArgs e)

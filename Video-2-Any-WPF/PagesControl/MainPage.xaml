@@ -12,41 +12,45 @@
     <Grid>
         <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="视频转码" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
 
+        <Grid>
+            <Grid Height="47" Margin="10,45,10,0" VerticalAlignment="Top">
+                <Label Content="源视频：" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                <ui:AutoSuggestBox x:Name="sourcePath" PlaceholderText="打开源视频或输入视频路径" Margin="71,0,108,0" VerticalAlignment="Center"/>
+                <Button x:Name="openSource" Content="打开源..." Margin="0,0,10,0" Height="32" Click="openSource_Click" HorizontalAlignment="Right" Width="93"/>
+            </Grid>
+            <Grid Height="47" Margin="10,97,10,0" VerticalAlignment="Top">
+                <Label Content="输出为：" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                <ComboBox x:Name="formatChooser" Margin="71,0,0,0" Width="120" VerticalAlignment="Center">
+                    <ComboBoxItem IsSelected="True">mp4</ComboBoxItem>
+                    <ComboBoxItem>avi</ComboBoxItem>
+                    <ComboBoxItem>mov</ComboBoxItem>
+                    <ComboBoxItem>mkv</ComboBoxItem>
+                    <ComboBoxItem>mp3</ComboBoxItem>
+                </ComboBox>
+            </Grid>
+            <Grid Height="47" Margin="10,149,10,0" VerticalAlignment="Top">
+                <Label Content="保存为：" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                <ui:AutoSuggestBox x:Name="savePath" PlaceholderText="打开保存位置或输入保存路径" Margin="71,0,108,0" VerticalAlignment="Center"/>
+                <Button x:Name="saveFile" Content="保存..." Margin="0,0,10,0" Height="32" Click="saveFile_Click" Width="93" HorizontalAlignment="Right"/>
 
-        <Grid Height="47" Margin="10,45,10,0" VerticalAlignment="Top">
-            <Label Content="源视频：" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center"/>
-            <ui:AutoSuggestBox x:Name="sourcePath" PlaceholderText="打开源视频或输入视频路径" Margin="71,0,108,0" VerticalAlignment="Center"/>
-            <Button x:Name="openSource" Content="打开源..." Margin="0,0,10,0" Height="32" Click="openSource_Click" HorizontalAlignment="Right" Width="93"/>
-        </Grid>
-        <Grid Height="47" Margin="10,97,10,0" VerticalAlignment="Top">
-            <Label Content="输出为：" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center"/>
-            <ComboBox x:Name="formatChooser" Margin="71,0,0,0" Width="120" VerticalAlignment="Center">
-                <ComboBoxItem IsSelected="True">mp4</ComboBoxItem>
-                <ComboBoxItem>avi</ComboBoxItem>
-                <ComboBoxItem>mov</ComboBoxItem>
-                <ComboBoxItem>mkv</ComboBoxItem>
-                <ComboBoxItem>mp3</ComboBoxItem>
-            </ComboBox>
-        </Grid>
-        <Grid Height="47" Margin="10,149,10,0" VerticalAlignment="Top">
-            <Label Content="保存为：" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center"/>
-            <ui:AutoSuggestBox x:Name="savePath" PlaceholderText="打开保存位置或输入保存路径" Margin="71,0,108,0" VerticalAlignment="Center"/>
-            <Button x:Name="saveFile" Content="保存..." Margin="0,0,10,0" Height="32" Click="saveFile_Click" Width="93" HorizontalAlignment="Right"/>
+            </Grid>
+            <Grid Height="46" Margin="10,202,10,0" VerticalAlignment="Top">
+                <ProgressBar x:Name="progressToComp" Height="10" Margin="10,14,108,0" VerticalAlignment="Top"/>
+                <TextBlock x:Name="progressText" Margin="0,11,26,0" TextWrapping="Wrap" Text="进度：0%" VerticalAlignment="Top" HorizontalAlignment="Right" Width="74"/>
 
-        </Grid>
-        <Grid Height="46" Margin="10,202,10,0" VerticalAlignment="Top">
-            <ProgressBar x:Name="progressToComp" Height="10" Margin="10,14,108,0" VerticalAlignment="Top"/>
-            <TextBlock x:Name="progressText" Margin="0,11,26,0" TextWrapping="Wrap" Text="进度：0%" VerticalAlignment="Top" HorizontalAlignment="Right" Width="74"/>
+            </Grid>
 
-        </Grid>
-        <Grid Height="46" Margin="10,253,10,0" VerticalAlignment="Top">
-            <Button x:Name="addToQueue" Content="添加到队列" Margin="0,0,108,0" Height="32" HorizontalAlignment="Right" Width="93" Click="addToQueue_Click"/>
-            <Button x:Name="start" Content="启动！" Margin="0,0,10,0" Height="32" Click="start_Click" HorizontalAlignment="Right" Width="93"/>
-
-        </Grid>
-        <!--<Label Content="源信息：" HorizontalAlignment="Left" Margin="10,251,0,0" VerticalAlignment="Top"/>-->
-        <!--<Label Content="命名为：" HorizontalAlignment="Left" Margin="206,113,0,0" VerticalAlignment="Top"/>
+            <Grid Height="187" Margin="10,253,10,0" VerticalAlignment="Top">
+                <Button x:Name="addToQueue" Content="添加到队列" Margin="0,10,108,0" Height="32" HorizontalAlignment="Right" Width="93" Click="addToQueue_Click" VerticalAlignment="Top"/>
+                <Button x:Name="start" Content="启动！" Margin="0,10,10,0" Height="32" Click="start_Click" HorizontalAlignment="Right" Width="93" VerticalAlignment="Top"/>
+                <Label Content="源信息：" HorizontalAlignment="Left" Margin="10,17,0,0" VerticalAlignment="Top"/>
+                <ui:ScrollViewerEx Margin="10,47,10,10">
+                    <TextBlock x:Name="SourceInformation"/>
+                </ui:ScrollViewerEx>
+            </Grid>
+            <!--<Label Content="源信息：" HorizontalAlignment="Left" Margin="10,251,0,0" VerticalAlignment="Top"/>-->
+            <!--<Label Content="命名为：" HorizontalAlignment="Left" Margin="206,113,0,0" VerticalAlignment="Top"/>
         <TextBox HorizontalAlignment="Left" Margin="267,106,0,0" TextWrapping="Wrap" Text="Output" VerticalAlignment="Top" Width="382"/>-->
-
+        </Grid>
     </Grid>
 </Page>
