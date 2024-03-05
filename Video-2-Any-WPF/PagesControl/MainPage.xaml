@@ -27,6 +27,11 @@
                     <ComboBoxItem>mkv</ComboBoxItem>
                     <ComboBoxItem>mp3</ComboBoxItem>
                 </ComboBox>
+                <Label Content="预设：" HorizontalAlignment="Left" Margin="204,0,0,0" VerticalAlignment="Center"/>
+                <ComboBox x:Name="PresetChooser" Margin="251,0,108,0" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                    <ComboBoxItem IsSelected="True">Default</ComboBoxItem>
+                </ComboBox>
+                <Button x:Name="PresetFolder" Content="预设..." Margin="0,0,10,0" Height="32" HorizontalAlignment="Right" Width="93"/>
             </Grid>
             <Grid Height="47" Margin="10,149,10,0" VerticalAlignment="Top">
                 <Label Content="保存为：" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center"/>

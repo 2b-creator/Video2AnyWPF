@@ -54,5 +54,9 @@ namespace Video_2_Any_WPF
         {
 
         }
+
+        private void mainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+        }
     }
 }

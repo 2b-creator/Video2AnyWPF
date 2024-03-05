@@ -34,6 +34,14 @@ namespace Video_2_Any_WPF.PagesControl
         public MainPage()
         {
             InitializeComponent();
+            string[] paths = { System.Environment.CurrentDirectory, "Preset" };
+            string folderPath = System.IO.Path.Combine(paths);
+            string[] files = Directory.GetFiles(folderPath, "*.json", SearchOption.AllDirectories);
+            foreach (string file in files)
+            {
+                string addFile = file.Replace($"{folderPath}\\", "");
+                PresetChooser.Items.Add(addFile);
+            }
         }
 
         private async void openSource_Click(object sender, RoutedEventArgs e)
@@ -65,6 +73,7 @@ namespace Video_2_Any_WPF.PagesControl
         }
         public long totalFrame;
         public TimeSpan totalTime;
+        public string presetPathSender;
 
         private async void start_Click(object sender, RoutedEventArgs e)
         {
@@ -79,10 +88,21 @@ namespace Video_2_Any_WPF.PagesControl
                 var metadata = await ffmpeg.GetMetaDataAsync(inputFile, CancellationToken.None);
                 totalFrame = metadata.FileInfo.Length;
                 totalTime = metadata.Duration;
+                string[] pathsOfPreset = { System.Environment.CurrentDirectory, "Preset", PresetChooser.Text };
+                string presetPath = System.IO.Path.Combine(pathsOfPreset);
+                presetPathSender = presetPath;
                 ffmpeg.Progress += OnProgress;
                 ffmpeg.Complete += OnComplete;
-
-                await ffmpeg.ConvertAsync(inputFile, outputFile, CancellationToken.None).ConfigureAwait(false);
+                ffmpeg.Error += OnError;
+                if(PresetChooser.Text == "Default")
+                {
+                    await ffmpeg.ConvertAsync(inputFile, outputFile, CancellationToken.None).ConfigureAwait(false);
+                }
+                else
+                {
+                    var options = Controller.OptionsHandler(presetPath, Controller.WithToHeightRatio(metadata.VideoData.FrameSize));
+                    await ffmpeg.ConvertAsync(inputFile, outputFile, options, CancellationToken.None).ConfigureAwait(false);
+                }
             }
         }
         public void OnProgress(object? sender, ConversionProgressEventArgs e)
@@ -102,6 +122,8 @@ namespace Video_2_Any_WPF.PagesControl
                 }
             });
         }
+        private static void OnError(object sender, ConversionErrorEventArgs e)
+            => Console.WriteLine("[{0} => {1}]: Error: {2}\n{3}", e.Input.Name, e.Output?.Name, e.Exception.ExitCode, e.Exception.InnerException);
         private void OnComplete(object? sender, ConversionCompleteEventArgs e)
         {
             Dispatcher.Invoke(() =>
@@ -123,6 +145,7 @@ namespace Video_2_Any_WPF.PagesControl
                 IdCode++;
                 DataClass dataClass = new DataClass();
                 dataClass.Id = IdCode;
+                dataClass.conversionOptions = PresetChooser.Text;
                 dataClass.format = formatChooser.Text;
                 dataClass.sourcePath = sourcePath.Text;
                 dataClass.targetPath = savePath.Text;

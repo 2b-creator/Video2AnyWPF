@@ -62,6 +62,7 @@ namespace Video_2_Any_WPF.PagesControl
         {
             string[] paths = { System.Environment.CurrentDirectory, "ffmpeg.exe" };
             string workPath = System.IO.Path.Combine(paths);
+
             var ffmpeg = new Engine(workPath);
             if (MainPage.dataClasses.Count == 0)
             {
@@ -86,17 +87,22 @@ namespace Video_2_Any_WPF.PagesControl
                     long totalFrame = metadata.FileInfo.Length;
                     TimeSpan totalTime = new TimeSpan();
                     totalTime = metadata.Duration;
+                    string frameSize = metadata.VideoData.FrameSize;
+                    double wTHRatio = Controller.WithToHeightRatio(frameSize);
+                    string[] pathOfPreset = { System.Environment.CurrentDirectory, "Preset", item.conversionOptions };
+                    string presetPath = System.IO.Path.Combine(pathOfPreset);
+                    ConversionOptions options = Controller.OptionsHandler(presetPath, wTHRatio);
                     if (i == 0)
                     {
                         ffmpeg.Complete += OnComplete;
                     }
-                    await ffmpeg.ConvertAsync(inputFile, outputFile, CancellationToken.None).ConfigureAwait(false);
+                    await ffmpeg.ConvertAsync(inputFile, outputFile, options, CancellationToken.None).ConfigureAwait(false);
                 }
                 Dispatcher.Invoke(() =>
                 {
                     MainPage.dataClasses.Clear();
                 });
-                
+
             }
         }
         private void OnComplete(object? sender, ConversionCompleteEventArgs e)
@@ -113,7 +119,7 @@ namespace Video_2_Any_WPF.PagesControl
                     .Show();
                     QueueProgressBarL.ShowPaused = true;
                     ProText.Text = "进度：请先启动队列";
-                    
+
                 });
 
             }

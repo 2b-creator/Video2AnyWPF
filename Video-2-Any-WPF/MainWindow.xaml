@@ -11,7 +11,7 @@
         ui:TitleBar.ExtendViewIntoTitleBar="True"    
         ui:WindowHelper.SystemBackdropType="Mica"
         ui:TitleBar.IsBackButtonVisible="False"
-        ui:WindowHelper.UseModernWindowStyle="True" Activated="mainWindow_Activated">
+        ui:WindowHelper.UseModernWindowStyle="True" Activated="mainWindow_Activated" Loaded="mainWindow_Loaded">
     <Grid>
         <ui:NavigationView x:Name="nv" IsBackButtonVisible="Collapsed" IsPaneOpen="True" SelectionChanged="NavigationView_SelectionChanged">
             <Frame x:Name="contentFrame" NavigationUIVisibility="Hidden"/>
