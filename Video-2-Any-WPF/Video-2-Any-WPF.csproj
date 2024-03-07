@@ -36,7 +36,13 @@
     <None Update="ffmpeg.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Preset\VeryFastMP4_1080p60.json">
+    <None Update="Preset\VeryFast_1080p30.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Preset\VeryFast_1080p60.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Preset\VeryFast_2k30.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

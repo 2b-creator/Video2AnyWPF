@@ -9,15 +9,16 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="DefaultPage">
 
-    <Grid HorizontalAlignment="Left" Width="800">
-        <Image Height="270" Margin="34,10,110,0" VerticalAlignment="Top" Source="/PagesControl/title.png" Stretch="UniformToFill">
-            <Image.Clip>
-                <RectangleGeometry RadiusX="10" RadiusY="10" Rect="10,10,630,250"></RectangleGeometry>
-            </Image.Clip>
-        </Image>
-        <TextBlock Margin="0,119,140,0" TextWrapping="Wrap" Text="Video 2 Any 1.0.0.0 正式版" VerticalAlignment="Top" FontSize="36" FontWeight="Bold" HorizontalAlignment="Right" Width="580"/>
-        <Button x:Name="about" Content="关于..." Margin="327,319,0,0" VerticalAlignment="Top" Click="about_Click"/>
-
+    <Grid>
+        <Grid>
+            <Image Height="270" Margin="87,10,0,0" VerticalAlignment="Top" Source="/PagesControl/title.png" Stretch="UniformToFill" HorizontalAlignment="Left" Width="626">
+                <Image.Clip>
+                    <RectangleGeometry RadiusX="10" RadiusY="10" Rect="10,10,600,250"></RectangleGeometry>
+                </Image.Clip>
+            </Image>
+            <TextBlock Margin="0,114,0,0" TextWrapping="Wrap" Text="Video 2 Any 1.0.0 正式版" VerticalAlignment="Top" FontSize="36" FontWeight="Bold" HorizontalAlignment="Center" Width="460"/>
+            <Button x:Name="about" Content="关于..." Margin="327,322,0,0" VerticalAlignment="Top" Click="about_Click" Width="145"/>
+        </Grid>
 
     </Grid>
 </ui:Page>

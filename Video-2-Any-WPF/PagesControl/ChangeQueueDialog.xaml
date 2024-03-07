@@ -1,0 +1,14 @@
+﻿<UserControl x:Class="Video_2_Any_WPF.PagesControl.ChangeQueueDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:local="clr-namespace:Video_2_Any_WPF.PagesControl">
+    <StackPanel>
+        <ui:RadioButtons x:Name="operateMode" Header="操作方式：" SelectionChanged="operateMode_SelectionChanged">
+            <RadioButton x:Name="DeleteCon" Content="删除" IsChecked="True" Tag="1" Checked="DeleteCon_Checked"/>
+            <RadioButton x:Name="ClearCon" Content="清空" Tag="2" Checked="ClearCon_Checked"/>
+        </ui:RadioButtons>
+        <ui:AutoSuggestBox x:Name="DeleteQueueId" PlaceholderText="请输入要删除的队列" IsEnabled="{Binding Path=IsChecked, ElementName=DeleteCon}" TextChanged="DeleteQueueId_TextChanged"/>
+    </StackPanel>
+</UserControl>

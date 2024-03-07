@@ -11,7 +11,7 @@
 
     <Grid>
         <ui:ScrollViewerEx Margin="10,43,10,159">
-            <DataGrid x:Name="dgQueue" ItemsSource="{Binding MainPage.dataClasses}" IsReadOnly="True" CanUserSortColumns="False" CanUserAddRows="False" CanUserReorderColumns="False">
+            <DataGrid x:Name="dgQueue" IsReadOnly="True" CanUserSortColumns="False" CanUserAddRows="False" CanUserReorderColumns="False">
                 <!--<DataGrid.Columns>
                     <DataGridTextColumn Width="105" Binding="{Binding sourcePath}">
                     </DataGridTextColumn>
@@ -27,7 +27,7 @@
         </ui:ScrollViewerEx>
 
         <Button x:Name="StartQueue" Content="启动队列" Margin="0,383,10,0" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Width="105" Click="StartQueue_Click"/>
-        <Button Content="更改队列..." Margin="10,383,0,0" VerticalAlignment="Top" Height="30"/>
+        <Button x:Name="ChangeQueue" Content="更改队列..." Margin="10,383,0,0" VerticalAlignment="Top" Height="30" Click="ChangeQueue_Click"/>
 
 
         <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="任务队列" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>

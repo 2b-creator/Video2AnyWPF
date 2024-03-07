@@ -21,6 +21,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using System.DirectoryServices.ActiveDirectory;
+using MessageBoxEx = iNKORE.UI.WPF.Modern.Controls.MessageBox;
 
 namespace Video_2_Any_WPF.PagesControl
 {
@@ -94,7 +95,7 @@ namespace Video_2_Any_WPF.PagesControl
                 ffmpeg.Progress += OnProgress;
                 ffmpeg.Complete += OnComplete;
                 ffmpeg.Error += OnError;
-                if(PresetChooser.Text == "Default")
+                if (PresetChooser.Text == "Default")
                 {
                     await ffmpeg.ConvertAsync(inputFile, outputFile, CancellationToken.None).ConfigureAwait(false);
                 }
@@ -137,7 +138,7 @@ namespace Video_2_Any_WPF.PagesControl
             });
         }
         public static ObservableCollection<DataClass> dataClasses = new ObservableCollection<DataClass>();
-        public int IdCode = 0;
+        public static int IdCode = 0;
         private void addToQueue_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(sourcePath.Text) == false && string.IsNullOrEmpty(savePath.Text) == false)
@@ -145,14 +146,22 @@ namespace Video_2_Any_WPF.PagesControl
                 IdCode++;
                 DataClass dataClass = new DataClass();
                 dataClass.Id = IdCode;
-                dataClass.conversionOptions = PresetChooser.Text;
-                dataClass.format = formatChooser.Text;
-                dataClass.sourcePath = sourcePath.Text;
-                dataClass.targetPath = savePath.Text;
-                dataClass.status = 0;
+                dataClass.ConversionOptions = PresetChooser.Text;
+                dataClass.Format = formatChooser.Text;
+                dataClass.SourcePath = sourcePath.Text;
+                dataClass.TargetPath = savePath.Text;
+                dataClass.Status = 0;
                 dataClasses.Add(dataClass);
             }
 
+        }
+
+        private async void PresetFolder_Click(object sender, RoutedEventArgs e)
+        {
+            string[] pathsOfPreset = { System.Environment.CurrentDirectory, "Preset" };
+            string presetPath = System.IO.Path.Combine(pathsOfPreset);
+            System.Diagnostics.Process.Start("Explorer.exe", presetPath);
+            await MessageBoxEx.ShowAsync("修改预设后请重启程序应用更改", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

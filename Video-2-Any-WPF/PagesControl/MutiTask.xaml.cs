@@ -81,22 +81,30 @@ namespace Video_2_Any_WPF.PagesControl
                         ProText.Text = $"进度：第{j}个，共{MainPage.dataClasses.Count}个";
                     });
                     i--;
-                    var inputFile = new InputFile(item.sourcePath);
-                    var outputFile = new OutputFile(item.targetPath);
+                    var inputFile = new InputFile(item.SourcePath);
+                    var outputFile = new OutputFile(item.TargetPath);
                     var metadata = await ffmpeg.GetMetaDataAsync(inputFile, CancellationToken.None);
                     long totalFrame = metadata.FileInfo.Length;
                     TimeSpan totalTime = new TimeSpan();
                     totalTime = metadata.Duration;
                     string frameSize = metadata.VideoData.FrameSize;
                     double wTHRatio = Controller.WithToHeightRatio(frameSize);
-                    string[] pathOfPreset = { System.Environment.CurrentDirectory, "Preset", item.conversionOptions };
+                    string[] pathOfPreset = { System.Environment.CurrentDirectory, "Preset", item.ConversionOptions };
                     string presetPath = System.IO.Path.Combine(pathOfPreset);
-                    ConversionOptions options = Controller.OptionsHandler(presetPath, wTHRatio);
+
                     if (i == 0)
                     {
                         ffmpeg.Complete += OnComplete;
                     }
-                    await ffmpeg.ConvertAsync(inputFile, outputFile, options, CancellationToken.None).ConfigureAwait(false);
+                    if (item.ConversionOptions == "Default")
+                    {
+                        await ffmpeg.ConvertAsync(inputFile, outputFile, CancellationToken.None).ConfigureAwait(false);
+                    }
+                    else
+                    {
+                        ConversionOptions options = Controller.OptionsHandler(presetPath, wTHRatio);
+                        await ffmpeg.ConvertAsync(inputFile, outputFile, options, CancellationToken.None).ConfigureAwait(false);
+                    }
                 }
                 Dispatcher.Invoke(() =>
                 {
@@ -122,6 +130,48 @@ namespace Video_2_Any_WPF.PagesControl
 
                 });
 
+            }
+        }
+
+        private async void ChangeQueue_Click(object sender, RoutedEventArgs e)
+        {
+            ContentDialog dialog = new ContentDialog();
+            dialog.Title = "请选择队列操作方式：";
+            dialog.PrimaryButtonText = "确认";
+            //dialog.SecondaryButtonText = "Don't Save";
+            dialog.CloseButtonText = "取消";
+            dialog.DefaultButton = ContentDialogButton.Primary;
+            dialog.Content = new ChangeQueueDialog();
+
+            var result = await dialog.ShowAsync();
+            if (result == ContentDialogResult.Primary)
+            {
+                if (DeleteOrClear.RadioButtonStatus == 1)
+                {
+                    try
+                    {
+                        MainPage.dataClasses.RemoveAt(DeleteOrClear.DeleteId - 1);
+                        int total = MainPage.dataClasses.Count;
+                        for (int i = 0; i < total; i++)
+                        {
+                            if (MainPage.dataClasses[i].Id == i + 2)
+                            {
+                                MainPage.dataClasses[i].Id = i + 1;
+                            }
+                        }
+                        MainPage.IdCode--;
+                    }
+                    catch (ArgumentOutOfRangeException)
+                    {
+                        await MessageBoxEx.ShowAsync("无效的Id！", "错误！", MessageBoxButton.OK, MessageBoxImage.Error);
+                        //throw;
+                    }
+
+                }
+                else if (DeleteOrClear.RadioButtonStatus == 2)
+                {
+                    MainPage.dataClasses.Clear();
+                }
             }
         }
     }
