@@ -40,7 +40,7 @@ namespace Video_2_Any_WPF.PagesControl
         {
             Dispatcher.BeginInvoke(new Action(() =>
             {
-                dgQueue.ItemsSource = MainPage.dataClasses;
+                dgQueue.ItemsSource = Data.DataOfAssembly.DataClasses;
                 //for (int i = 0; i < 5; i++)
                 //{
                 //    string[] stringsHeader = new string[] { "编号", "源路径", "目标路径", "格式", "状态" };
@@ -64,21 +64,21 @@ namespace Video_2_Any_WPF.PagesControl
             string workPath = System.IO.Path.Combine(paths);
 
             var ffmpeg = new Engine(workPath);
-            if (MainPage.dataClasses.Count == 0)
+            if (Data.DataOfAssembly.DataClasses.Count == 0)
             {
                 await MessageBoxEx.ShowAsync("列表为空！", "错误！", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {
                 QueueProgressBarL.ShowPaused = false;
-                i = MainPage.dataClasses.Count;
+                i = Data.DataOfAssembly.DataClasses.Count;
                 j = 0;
-                foreach (var item in MainPage.dataClasses)
+                foreach (var item in Data.DataOfAssembly.DataClasses)
                 {
                     j++;
                     Dispatcher.Invoke(() =>
                     {
-                        ProText.Text = $"进度：第{j}个，共{MainPage.dataClasses.Count}个";
+                        ProText.Text = $"进度：第{j}个，共{Data.DataOfAssembly.DataClasses.Count}个";
                     });
                     i--;
                     var inputFile = new InputFile(item.SourcePath);
@@ -108,7 +108,7 @@ namespace Video_2_Any_WPF.PagesControl
                 }
                 Dispatcher.Invoke(() =>
                 {
-                    MainPage.dataClasses.Clear();
+                    Data.DataOfAssembly.DataClasses.Clear();
                 });
 
             }
@@ -150,13 +150,13 @@ namespace Video_2_Any_WPF.PagesControl
                 {
                     try
                     {
-                        MainPage.dataClasses.RemoveAt(DeleteOrClear.DeleteId - 1);
-                        int total = MainPage.dataClasses.Count;
+                        Data.DataOfAssembly.DataClasses.RemoveAt(DeleteOrClear.DeleteId - 1);
+                        int total = Data.DataOfAssembly.DataClasses.Count;
                         for (int i = 0; i < total; i++)
                         {
-                            if (MainPage.dataClasses[i].Id == i + 2)
+                            if (Data.DataOfAssembly.DataClasses[i].Id == i + 2)
                             {
-                                MainPage.dataClasses[i].Id = i + 1;
+                                Data.DataOfAssembly.DataClasses[i].Id = i + 1;
                             }
                         }
                         MainPage.IdCode--;
@@ -170,7 +170,7 @@ namespace Video_2_Any_WPF.PagesControl
                 }
                 else if (DeleteOrClear.RadioButtonStatus == 2)
                 {
-                    MainPage.dataClasses.Clear();
+                    Data.DataOfAssembly.DataClasses.Clear();
                 }
             }
         }

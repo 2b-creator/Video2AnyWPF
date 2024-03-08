@@ -4,11 +4,43 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Video_2_Any_WPF.PagesControl"
+      xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SettingPage">
 
     <Grid>
         <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="设置" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
+        <Grid Margin="10,43,10,50">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="200*"/>
+            </Grid.RowDefinitions>
+            <Label Content="完成后执行:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Height="18" Width="75"/>
+            <ComboBox Margin="90,0,0,0" VerticalAlignment="Center" Width="83" Height="32">
+                <ComboBoxItem IsSelected="True">无</ComboBoxItem>
+                <ComboBoxItem>关机</ComboBoxItem>
+                <ComboBoxItem>重启</ComboBoxItem>
+            </ComboBox>
+            <Label Content="使用硬件加速：" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" VerticalAlignment="Center" Height="18" Width="98"/>
+            <ComboBox Margin="113,0,0,0" Grid.Row="1" Width="120" Height="32" VerticalAlignment="Center">
+                <ComboBoxItem IsSelected="True">自动</ComboBoxItem>
+                <ComboBoxItem>Cuda</ComboBoxItem>
+                <ComboBoxItem>dxva2</ComboBoxItem>
+                <ComboBoxItem>不使用硬件加速</ComboBoxItem>
+            </ComboBox>
+            <Label Content="手动参数：" HorizontalAlignment="Left" Margin="12,0,0,0" Grid.Row="2" VerticalAlignment="Center"/>
+            <ui:AutoSuggestBox Grid.Row="2" VerticalAlignment="Center" Margin="87,0,0,0" HorizontalAlignment="Left" Width="303"/>
+            <Label Content="显示磁盘空间不足警报级别：" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="3" VerticalAlignment="Center"/>
+            <ui:AutoSuggestBox Text="2" Grid.Row="3" VerticalAlignment="Center" Margin="197,0,0,0" HorizontalAlignment="Left" Width="105"/>
+            <Label Content="GB" HorizontalAlignment="Left" Margin="307,0,0,0" Grid.Row="3" VerticalAlignment="Center"/>
+            <CheckBox x:Name="AvoidSystemToSleep" Content="转码时防止系统进入睡眠状态" IsChecked="True" Margin="12,0,0,0" Grid.Row="4"/>
+
+        </Grid>
+        <Button x:Name="SaveSettings" Content="保存" Margin="0,0,10,10" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="69" Height="30" Click="SaveSettings_Click"/>
     </Grid>
 </Page>

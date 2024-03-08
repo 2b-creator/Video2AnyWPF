@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace Video_2_Any_WPF.PagesControl
 {
     /// <summary>
-    /// SettingPage.xaml 的交互逻辑
+    /// PresetMaker.xaml 的交互逻辑
     /// </summary>
-    public partial class SettingPage : Page
+    public partial class PresetMaker : Page
     {
-        public SettingPage()
+        public PresetMaker()
         {
             InitializeComponent();
-        }
-
-        private void SaveSettings_Click(object sender, RoutedEventArgs e)
-        {
-            SettingsData.AvoidSystemSleep = AvoidSystemToSleep.IsChecked;
         }
     }
 }

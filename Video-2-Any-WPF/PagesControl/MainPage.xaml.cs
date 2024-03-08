@@ -137,7 +137,7 @@ namespace Video_2_Any_WPF.PagesControl
                 .Show();
             });
         }
-        public static ObservableCollection<DataClass> dataClasses = new ObservableCollection<DataClass>();
+        
         public static int IdCode = 0;
         private void addToQueue_Click(object sender, RoutedEventArgs e)
         {
@@ -151,7 +151,7 @@ namespace Video_2_Any_WPF.PagesControl
                 dataClass.SourcePath = sourcePath.Text;
                 dataClass.TargetPath = savePath.Text;
                 dataClass.Status = 0;
-                dataClasses.Add(dataClass);
+                Data.DataOfAssembly.DataClasses.Add(dataClass);
             }
 
         }
