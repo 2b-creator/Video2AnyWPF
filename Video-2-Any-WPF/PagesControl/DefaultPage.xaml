@@ -16,7 +16,7 @@
                     <RectangleGeometry RadiusX="10" RadiusY="10" Rect="10,10,600,250"></RectangleGeometry>
                 </Image.Clip>
             </Image>
-            <TextBlock Margin="0,114,0,0" TextWrapping="Wrap" Text="Video 2 Any 1.1.0 正式版" VerticalAlignment="Top" FontSize="36" FontWeight="Bold" HorizontalAlignment="Center" Width="460"/>
+            <TextBlock Margin="0,114,0,0" TextWrapping="Wrap" Text="Video 2 Any 1.6.1 正式版" VerticalAlignment="Top" FontSize="36" FontWeight="Bold" HorizontalAlignment="Center" Width="460"/>
             <Button x:Name="about" Content="关于..." Margin="327,322,0,0" VerticalAlignment="Top" Click="about_Click" Width="145"/>
         </Grid>
 
