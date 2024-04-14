@@ -22,6 +22,8 @@ using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using System.DirectoryServices.ActiveDirectory;
 using MessageBoxEx = iNKORE.UI.WPF.Modern.Controls.MessageBox;
+using iNKORE.UI.WPF.Modern.Controls;
+using iNKORE.UI.WPF.Modern.Controls.Primitives;
 
 namespace Video_2_Any_WPF.PagesControl
 {
@@ -30,7 +32,7 @@ namespace Video_2_Any_WPF.PagesControl
     /// </summary>
     public delegate void SetNavEnable();
 
-    public partial class MainPage : Page
+    public partial class MainPage : System.Windows.Controls.Page
     {
         public MainPage()
         {
